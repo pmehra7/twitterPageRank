@@ -29,7 +29,7 @@ object App {
     val graphName = "Twitter_Graph"
     val dse_graphframe = spark.dseGraph(graphName)
     val g = dse_graphframe.gf
-    val results = g.pageRank.resetProbability(0.15).tol(0.0001).run()
+    val results = g.pageRank.resetProbability(0.15).tol(0.00001).run()
     println(results.vertices.select("id", "pagerank").show())
 
   }
