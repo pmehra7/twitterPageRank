@@ -31,7 +31,7 @@ object App {
     norm_results.write.cassandraFormat("twitter_results", "pagerank").save()
     
     // Print Data
-    println(norm_results.sort(desc("norm_pg"))
+    println(norm_results.sort(desc("norm_pg")))
 
   }
 }
