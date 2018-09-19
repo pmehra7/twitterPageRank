@@ -1,13 +1,14 @@
 package com.twitterdata.pagerank
 
+package com.twitterdata.pagerank
+
 
 import com.datastax.bdp.graph.spark.graphframe._
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.functions.{col, lit, udf}
-import org.apache.spark.sql.types._
+import org.apache.spark.sql.cassandra._
+import org.apache.spark.sql.functions.{col, lit, sum, udf}
 
-
-object App {
+object App { 
   def main(args: Array[String]):Unit = {
 
     val spark = SparkSession
