@@ -4,7 +4,7 @@ package com.twitterdata.pagerank
 import com.datastax.bdp.graph.spark.graphframe._
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.cassandra._
-import org.apache.spark.sql.functions.{col, lit, sum, udf}
+import org.apache.spark.sql.functions.{col, lit, sum, udf, desc}
 
 object App { 
   def main(args: Array[String]):Unit = {
