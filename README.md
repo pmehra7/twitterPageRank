@@ -26,7 +26,7 @@ PRIMARY KEY (code)
 );
 ```
 
-Alternatively, you could just run the code in the main method (lines 19- 30) & import the packages. 
+Alternatively, you could just run the code in the main method (lines 19- 30) & import the packages in spark shell cluster mode. 
 
 ## Data:
 
