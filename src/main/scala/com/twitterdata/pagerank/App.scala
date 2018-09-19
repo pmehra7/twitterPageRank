@@ -16,21 +16,20 @@ object App {
       .enableHiveSupport()
       .getOrCreate()
 
-
-    def time[R](block: => R): R = {
-        val t0 = System.nanoTime()
-        val result = block    // call-by-name
-        val t1 = System.nanoTime()
-        println("Elapsed time: " + (t1 - t0) + "ns")
-        result
-    }
+    // Normalize UDF
+    val normalize: ((Double, Double) => Double) = (arg0: Double, sum: Double) => { arg0 / sum }
+    val normalizeUDF = udf(normalize)
 
     // GraphFrames
     val graphName = "Twitter_Graph"
     val dse_graphframe = spark.dseGraph(graphName)
     val g = dse_graphframe.gf
-    val results = g.pageRank.resetProbability(0.15).tol(0.00001).run()
-    println(results.vertices.select("id", "pagerank").show())
+    val results = g.pageRank.resetProbability(0.15).tol(0.0001).run()
+
+    // Persist Data to Cassandra
+    val pg_sum = results.vertices.select(sum("pagerank") as "pg_sum").collect()(0)(0).toString.toDouble
+    val norm_results = results.vertices.select(col("code"), normalizeUDF(col("pagerank"),lit(pg_sum)) as "norm_pg").sort(desc("norm_pg"))
+    norm_results.write.cassandraFormat("twitter_results", "pagerank").save()
 
   }
 }
