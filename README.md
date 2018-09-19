@@ -14,7 +14,7 @@ $ cd twitterPageRank/target
 $ dse spark-submit --executor-memory=<SET MEM HERE> --driver-memory=<SET MEM HERE> --class com.twitterdata.pagerank.App runPageRank-1.0-SNAPSHOT.jar 
 ```
 
-If you want to persist data into Cassandra, create the following Keyspace and Table
+If you want to persist data into Cassandra, create the following Keyspace and Table.
 
 ```sql
 CREATE KEYSPACE twitter_results WITH replication = {'class': 'NetworkTopologyStrategy', '<INSERT DataCenter Name HERE': '3'}  AND durable_writes = true;
@@ -25,6 +25,8 @@ norm_pg double,
 PRIMARY KEY (code)
 );
 ```
+
+Alternatively, you could just run the code in the main method (lines 19- 30) & import the packages. 
 
 ## Data:
 
