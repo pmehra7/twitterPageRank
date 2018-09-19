@@ -27,7 +27,8 @@ object App {
 
     // Persist Data to Cassandra
     val pg_sum = results.vertices.select(sum("pagerank") as "pg_sum").collect()(0)(0).toString.toDouble
-    val norm_results = results.vertices.select(col("code"), normalizeUDF(col("pagerank"),lit(pg_sum)) as "norm_pg")
+    val norm_results = results.vertices.select(col("twitter_id"), normalizeUDF(col("pagerank"),lit(pg_sum)) as "norm_pg")
+    println(norm_results.sort(desc("norm_pg"))
     norm_results.write.cassandraFormat("twitter_results", "pagerank").save()
 
   }
