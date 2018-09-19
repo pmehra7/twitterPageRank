@@ -1,7 +1,5 @@
 package com.twitterdata.pagerank
 
-package com.twitterdata.pagerank
-
 
 import com.datastax.bdp.graph.spark.graphframe._
 import org.apache.spark.sql.SparkSession
